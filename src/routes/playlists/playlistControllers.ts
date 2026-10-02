@@ -6,7 +6,8 @@ export async function getAlLPublicPlaylists(req:Request,res:Response){
     try {
         const result = await pool.query("SELECT * FROM playlists WHERE public = true;")
         if(result.rows.length == 0){
-            res.status(404).json({error:"No public Playlists Found"})
+            res.status(200).json({message:"No public Playlists Found"})
+            return
         }
         res.status(200).json(result.rows)
     }catch (e){
@@ -32,7 +33,8 @@ export async function getAllPlaylistsByUserId(req:Request,res:Response){
         
         const results = await pool.query("SELECT * FROM playlists WHERE user_id = $1",[userId])
         if(results.rows.length == 0){
-            res.status(404).json({error:"No playlists created by this user"})
+            res.status(200).json({message:"No playlists created by this user"})
+            return
         }
         res.status(200).json(results.rows)
 
@@ -63,7 +65,8 @@ export async function  getAllPlaylistByUserName(req:Request, res:Response){
 
         const results = await pool.query("SELECT * FROM playlists WHERE user_id = $1",[userIdResult])
         if(results.rows.length == 0){
-            res.status(404).json({error:"No playlists created by this user"})
+            res.status(200).json({message:"No playlists created by this user"})
+            return
         }
         res.status(200).json(results.rows)
 

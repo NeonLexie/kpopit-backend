@@ -33,7 +33,8 @@ export async function getPostsByUserId(req: Request, res: Response) {
     try {
         const result = await pool.query('SELECT * FROM posts WHERE user_id = $1', [userId]);
         if (result.rows.length === 0) {
-            return res.status(200).json({ message: 'No post created by this user' });
+            res.status(200).json({ message: 'No post created by this user' });
+            return;
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
@@ -48,7 +49,8 @@ export async function getPostByUserName(req:Request,res:Response){
     try {
         const result = await pool.query('SELECT * FROM posts INNER JOIN users ON users.id = posts.user_id WHERE users.username ILIKE $1', [`%${username}%`]);
         if (result.rows.length === 0) {
-            res.status(200).json({ message: 'No posts found' });
+            res.status(200).json({ message: 'No posts found for this username' });
+            return;
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
@@ -63,7 +65,8 @@ export async function getPostsByGroupId(req: Request, res: Response) {
     try {
         const result = await pool.query('SELECT * FROM posts WHERE group_id = $1', [groupId]);
         if (result.rows.length === 0) {
-            res.status(200).json({ message: 'No posts found' });
+            res.status(200).json({ message: 'No posts found for this group' });
+            return;
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
@@ -101,7 +104,7 @@ export async function getPostsByGroupNameOrIdolName(req:Request, res:Response){
 
         const results  = await pool.query(`SELECT * FROM posts WHERE content ->> 'text' ILIKE $1;`, [`%${groupOrIdolName}%`]);
         if (results.rows.length === 0) {
-            res.status(404).json({ error: 'No posts found for this group' });
+            res.status(200).json({ message: 'No posts found for this group or idol' });
             return
         }
         res.status(200).json(results.rows);
@@ -137,7 +140,7 @@ export async function getAllCommentMadeByUsername(req:Request,res:Response){
         `, [username]);
         
         if (results.rows.length === 0) {
-            res.status(404).json({ error: 'No comments found for this user' });
+            res.status(200).json({ message: 'No comments found for this user' });
             return;
         }
         res.status(200).json(results.rows);
@@ -473,7 +476,7 @@ export async function deletePost(req: Request, res: Response) {
         }
 
         await pool.query('DELETE FROM posts WHERE id = $1', [postId]);
-        res.status(204).json({ message: 'Post deleted successfully' });
+        res.status(200).json({ message: 'Post deleted successfully' });
 
     } catch (error) {
         console.error('❌ Error deleting post:', error);

@@ -63,9 +63,9 @@ export function getUsersByUserName(req: Request, res: Response) {
     pool.query('SELECT * FROM users WHERE username ILIKE $1', [`%${username}%`])
         .then(result => {
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'No users found with that username' });
+          return res.status(200).json({ message: 'No users found with that username' });
         }
-        res.status(200).json(result.rows);
+        return res.status(200).json(result.rows);
         })
         .catch(error => {
         console.error('❌ Error fetching users by username:', error);
