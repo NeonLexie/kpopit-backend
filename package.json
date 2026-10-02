@@ -19,7 +19,8 @@
     "insert-seed-users-dev":"docker exec -i kpopit-db-1 psql -U myuser -d mydb < database/seed_users.sql",
     "insert-seed-posts-dev":"docker exec -i kpopit-db-1 psql -U myuser -d mydb < database/seed_posts.sql",
     "insert-seed-playlists": "docker exec -i kpopit-db-1 psql -U myuser -d mydb < database/seed_playlists.sql",
-    "mega-seed-dev": "npm run insert-idol-data-dev && npm run insert-seed-users-dev && npm run insert-seed-posts-dev && npm run insert-seed-playlists",
+    "insert-seed-polls-dev": "docker exec -i kpopit-db-1 psql -U myuser -d mydb < database/seed_polls.sql",
+    "mega-seed-dev": "npm run insert-idol-data-dev && npm run insert-seed-users-dev && npm run insert-seed-posts-dev && npm run insert-seed-playlists && npm run insert-seed-polls-dev",
     "reset-db-dev": "docker exec -i kpopit-db-1 psql -U myuser -d mydb < database/reset.sql",
     "open-database-dev": "docker exec -it kpopit-db-1 psql -U myuser -d mydb",
     "restart-api": "docker restart kpopit-api"
