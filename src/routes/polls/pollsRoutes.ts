@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import * as pollsService from './pollsController';
+import * as Controller from './pollsController';
 const router = Router();
 
 router.get('/test', (req, res) => {
     console.log('Polls test route accessed');
     res.send('Polls test route works!');
 });
+
+router.get('/all',Controller.getAllPolls)
 
 export default router;
