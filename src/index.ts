@@ -4,6 +4,8 @@ import idolAndGroupRoutes from './routes/idolsAndGroups/idolAndGroupsRoutes';
 import usersRoutes from './routes/users/usersRoutes';
 import postRoutes from './routes/posts/postRoutes';
 import playlistRoutes from "./routes/playlists/playlistRoutes"
+import pollsRoutes from './routes/polls/pollsRoutes';
+
 
 
 
@@ -23,6 +25,7 @@ app.use('/api/idols_and_groups', idolAndGroupRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/playlists',playlistRoutes)
+app.use('/api/polls', pollsRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
