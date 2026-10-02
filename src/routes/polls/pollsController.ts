@@ -12,7 +12,23 @@ export async function getAllPolls(req: Request, res: Response) {
     }
 }
 
-export async function getPollByUser(req:Request, res:Response){
+export async function getPollById(req:Request,res:Response){
+    const {pollId} = req.params 
+    
+    try {
+        const results = await pool.query("SELECT * FROM polls WHERE id = $1", [pollId])
+        if (results.rows.length === 0 ){
+            res.status(200).json({message: "Poll Not Found"})
+            return
+        }
+        res.status(200).json(results.rows)
+    } catch (e){
+        console.log("Error Fetching Polls: ", e )
+        res.status(500).json({error:"Internal Service Error"})
+    }
+}
+
+export async function getPollByUserId(req:Request, res:Response){
     const {userId} = req.params
 
     try {

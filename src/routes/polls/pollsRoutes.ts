@@ -8,6 +8,7 @@ router.get('/test', (req, res) => {
 });
 
 router.get('/all',Controller.getAllPolls)
-router.get('/user_id/:userId',Controller.getPollByUser)
+router.get('/user_id/:userId',Controller.getPollByUserId)
+router.get('/id/:pollId', Controller.getPollById)
 
 export default router;
