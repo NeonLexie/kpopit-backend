@@ -33,7 +33,7 @@ export async function getPostsByUserId(req: Request, res: Response) {
     try {
         const result = await pool.query('SELECT * FROM posts WHERE user_id = $1', [userId]);
         if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Post not found' });
+            return res.status(200).json({ message: 'No post created by this user' });
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
@@ -48,7 +48,7 @@ export async function getPostByUserName(req:Request,res:Response){
     try {
         const result = await pool.query('SELECT * FROM posts INNER JOIN users ON users.id = posts.user_id WHERE users.username ILIKE $1', [`%${username}%`]);
         if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Post not found' });
+            res.status(200).json({ message: 'No posts found' });
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
@@ -63,7 +63,7 @@ export async function getPostsByGroupId(req: Request, res: Response) {
     try {
         const result = await pool.query('SELECT * FROM posts WHERE group_id = $1', [groupId]);
         if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Post not found' });
+            res.status(200).json({ message: 'No posts found' });
         }
         res.status(200).json(result.rows);
     } catch (error: any) {
