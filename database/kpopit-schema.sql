@@ -67,7 +67,7 @@ CREATE TABLE playlists (
 -- Polls Table
 CREATE TABLE polls (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_by VARCHAR(255) NOT NULL REFERENCES users(username),
+    user_id UUID NOT NULL REFERENCES users(id),
     title VARCHAR(255) NOT NULL,
     options JSONB NOT NULL,
     poll_type VARCHAR(100) NOT NULL,
