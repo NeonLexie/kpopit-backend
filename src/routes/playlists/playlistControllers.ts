@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import pool from "../pool";
 import { v4 as uuidv4 } from 'uuid';
-import { error } from 'console';
 
 export async function getAlLPublicPlaylists(req:Request,res:Response){
     try {

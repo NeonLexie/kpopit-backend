@@ -10,7 +10,7 @@ export async function getAllIdols(_req: Request, res: Response) {
   }
 }
 export async function getAllGroups(_req: Request, res: Response) {
- console.log("get all groups called");
+  console.log("get all groups called");
     try {
     const result = await pool.query('SELECT * FROM groups;');
     res.status(200).json(result.rows);
@@ -49,13 +49,13 @@ export async function getGroupByName(req: Request, res: Response){
 export async function getAllMembersGroupName(req:Request, res:Response){
   const {groupName} = req.params;
 
- try {
-    const result= await pool.query('SELECT * FROM idols INNER JOIN groups ON idols.group_name = groups.group_name WHERE groups.group_name ILIKE $1;', [`%${groupName}%`]);
-    res.status(200).json(result.rows);
- }  catch (error) {
-    console.error('❌ Error fetching members by group name:', error);
-    res.status(500).json({ error: 'Database error' });
-  }
+  try {
+      const result= await pool.query('SELECT * FROM idols INNER JOIN groups ON idols.group_name = groups.group_name WHERE groups.group_name ILIKE $1;', [`%${groupName}%`]);
+      res.status(200).json(result.rows);
+  }  catch (error) {
+      console.error('❌ Error fetching members by group name:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
 }
 
 export async function getAllMembersGroupDebutDate(req: Request, res: Response) {
